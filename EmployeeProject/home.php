@@ -28,6 +28,7 @@
     <aside class="w-1/5 h-screen bg-white flex flex-col pt-[5vh]">
     <a href="/EmployeeProject/home.php" class="px-2 py-4 bg-white text-sky-500 w-full font-semibold "><i class="bi bi-collection me-3"></i>Show Details</a>
     <a href="/EmployeeProject/changePass.php" class="px-2 py-4 w-full font-semibold"><i class="fa-solid fa-key me-3"></i>Change Password</a>
+    <a href="/EmployeeProject/deleteProfile.php" class="px-2 py-4 w-full font-semibold"><i class="bi bi-trash3 me-3"></i>Delete My Profile</a>
 </aside>
 <main class="w-4/5 h-screen flex flex-col items-center">
     <h1 class="text-center m-4 font-semibold text-2xl">Employee Details</h1>
@@ -55,7 +56,17 @@
         <tr><th>Email</th><td><?php echo $email; ?></td></tr>
         <tr><th>Password</th><td><?php echo $password; ?></td></tr>
         <tr><th>Mobile</th><td><?php echo $mobile; ?></td></tr>
-        <tr><th>Gender</th><td><?php echo $gender; ?></td></tr>
+        <tr><th>Gender</th><td><?php
+        if($gender == 'm'){
+            echo "Male";
+        }
+        elseif($gender == 'f'){
+            echo "Female";
+        }
+        else{
+            echo "Other";
+        }
+        ?></td></tr>
     </table>
     
     <?php 

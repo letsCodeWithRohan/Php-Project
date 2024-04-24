@@ -51,10 +51,10 @@
                         $data = mysqli_fetch_assoc($result);
                         // echo $data["email"]." <br> ".$data["password"];
                         if($email == $data["email"] && $password != $data["password"]){
-                            echo "<br>Wrong Password";
+                            echo '<p class="text-center p-3 font-semibold text-sm mt-2 text-white bg-red-500" id="hideIt">Wrong Password</p>';
                         }
                         elseif($password == $data["password"] && $email != $data["email"] ){
-                            echo "<br>Email not found";
+                            echo '<p class="text-center p-3 font-semibold text-sm mt-2 text-white bg-red-500" id="hideIt">Email not Found</p>';
                         }
                         elseif($password == $data["password"] && $email == $data["email"]){
                             echo '<p class="text-center p-3 font-semibold text-sm mt-2 text-white bg-green-500" id="hideIt">Successfully Logged in</p>';
