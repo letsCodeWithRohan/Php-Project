@@ -9,9 +9,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home page</title>
     <script src="https://cdn.tailwindcss.com/"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
-<body>
-    <h1>Welcome to home</h1>
+<style>
+    table,tr,th,td{
+        border: 1px solid #000;
+        border-collapse: collapse;
+    }
+    th,td{
+        padding: 10px;
+    }
+</style>
+<body class="h-screen w-screen bg-sky-300">
+    <?php require '_header.php'; ?>
+<section class="home flex">
+    <!-- Menubar -->
+    <aside class="w-1/5 h-screen bg-white flex flex-col pt-[5vh]">
+    <a href="/EmployeeProject/home.php" class="px-2 py-4 bg-white text-sky-500 w-full font-semibold "><i class="bi bi-collection me-3"></i>Show Details</a>
+    <a href="/EmployeeProject/changePass.php" class="px-2 py-4 w-full font-semibold"><i class="fa-solid fa-key me-3"></i>Change Password</a>
+</aside>
+<main class="w-4/5 h-screen flex flex-col items-center">
+    <h1 class="text-center m-4 font-semibold text-2xl">Employee Details</h1>
     <?php 
     $email = $_SESSION['email'];
     $password = $_SESSION['password'];
@@ -21,7 +40,6 @@
 
     if($result->num_rows == 1){
         $data = mysqli_fetch_assoc($result);
-        echo "Data Fetched success.";
         $name = $data["name"];
         $gender = $data["gender"];
         $mobile = $data["mobile"];
@@ -31,17 +49,15 @@
         echo "Error Fetching Data";
     }
     ?>
-    <p>E_ID : <?php echo $e_id; ?></p>
-    <p>Name : <?php echo $name; ?></p>
-    <p>Email : <?php echo $email; ?></p>
-    <p>Password : <?php echo $password; ?></p>
-    <p>Mobile : <?php echo $mobile; ?></p>
-    <p>Gender : <?php echo $gender; ?></p>
-    <form action="" method="post">
-        <label for="logout">Do you want to Logout ?</label>
-        <br>
-        <button class="bg-red-500 text-white p-2 rounded-md mt-3" name="logout">Log out</button>
-    </form>
+    <table class="w-2/3 bg-white">
+        <tr><th>Employee ID</th><td><?php echo $e_id; ?></td></tr>
+        <tr><th>Name</th><td><?php echo $name; ?></td></tr>
+        <tr><th>Email</th><td><?php echo $email; ?></td></tr>
+        <tr><th>Password</th><td><?php echo $password; ?></td></tr>
+        <tr><th>Mobile</th><td><?php echo $mobile; ?></td></tr>
+        <tr><th>Gender</th><td><?php echo $gender; ?></td></tr>
+    </table>
+    
     <?php 
     if(isset($_POST['logout'])){
         echo "successfully logout";
@@ -49,5 +65,7 @@
         header("Location: http://localhost/EmployeeProject/login.php");
     }
     ?>
+    </main>
+</section>
 </body>
 </html>
