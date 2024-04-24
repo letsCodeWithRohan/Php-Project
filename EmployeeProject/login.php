@@ -36,22 +36,49 @@
             </div>
             <?php
                 require '_db.php';
-
                 if(isset($_POST['login'])){
                     $email = $_POST['email'];
                     $password = $_POST['password'];
 
-                    $sql = "SELECT * FROM registration WHERE email='$email' AND password='$password'";
+                    $sql = "SELECT * FROM registration WHERE email='$email'";
 
-                    if($conn->query($sql) === TRUE){
-                        echo "User found";
+                    //return true or false if result found or not
+                    $result = $conn->query($sql);
+
+                    //if result have no records
+                    if($result->num_rows == 1){
+                        // associate result in $data array
+                        $data = mysqli_fetch_assoc($result);
+                        // echo $data["email"]." <br> ".$data["password"];
+                        if($email == $data["email"] && $password != $data["password"]){
+                            echo "<br>Wrong Password";
+                        }
+                        elseif($password == $data["password"] && $email != $data["email"] ){
+                            echo "<br>Email not found";
+                        }
+                        elseif($password == $data["password"] && $email == $data["email"]){
+                            echo '<p class="text-center p-3 font-semibold text-sm mt-2 text-white bg-green-500" id="hideIt">Successfully Logged in</p>';
+                            session_start();
+                            $_SESSION['email'] = $data["email"];
+                            $_SESSION['password'] = $data["password"];
+                            header("Location: http://localhost/EmployeeProject/home.php");
+                        }
+                        else{
+                            echo "Unknown error !!!";
+                        }
+
                     }
                     else{
-                        echo "No user found";
+                        echo '<p class="text-center p-3 font-semibold text-sm mt-2 text-white bg-red-500" id="hideIt">No Email Found</p>';
                     }
                 }
             ?>
         </form>
     </main>
+    <script>
+        document.querySelector('#hideIt').addEventListener('click',() => {
+            document.querySelector('#hideIt').style.display = 'none';
+        })
+    </script>
 </body>
 </html>
