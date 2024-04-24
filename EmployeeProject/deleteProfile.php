@@ -58,7 +58,7 @@
                     }
                 }
                 else{
-                    echo '<p class="text-center p-3 font-semibold text-sm mt-2 text-white bg-red-500" id="hideIt">Password Do not matched</p>';
+                    echo '<p class="text-center p-3 font-semibold text-sm mt-2 text-white bg-red-500" id="hideIt">Wrong Password</p>';
                 }
             }
             ?>
