@@ -12,17 +12,32 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
-<body class="h-screen w-screen bg-sky-300">
-    <?php require '_header.php'; ?>
-<section class="home flex">
-    <!-- Menubar -->
-    <aside class="w-1/5 h-screen bg-white flex flex-col pt-[5vh]">
-    <a href="/EmployeeProject/home.php" class="px-2 py-4 w-full font-semibold "><i class="bi bi-collection me-3"></i>Show Details</a>
-    <a href="/EmployeeProject/changePass.php" class="px-2 py-4 w-full font-semibold"><i class="fa-solid fa-key me-3"></i>Change Password</a>
-    <a href="/EmployeeProject/deleteProfile.php" class="px-2 py-4 w-full bg-white text-sky-500 font-semibold"><i class="bi bi-trash3 me-3"></i>Delete My Profile</a>
-
+<style>
+    aside{
+        transition: all linear 0.5s;
+    }
+    aside.hidded{
+        transition: all ease 0.3s;
+        width: max-content;
+        & span{
+            display: none;
+        }
+        & i{
+            margin: 0 20px;
+        }
+    }
+</style>
+<body class="h-screen w-screen bg-sky-300 flex flex-col">
+    <section class="home flex flex-1">
+        <!-- Menubar -->
+        <aside class="duration-500 ease-in w-1/5 h-full bg-white flex flex-col pt-[5vh] relative">
+            <p id="hider" onclick="hidenav()" class="absolute bg-white shadow-lg rounded-md w-[40px] h-[40px] flex justify-center items-center right-[-20px] top-[5px]"><</p>
+            <a href="/EmployeeProject/home.php" class="px-2 py-4 bg-white w-full font-semibold "><i class="bi bi-collection mx-3"></i><span>Show Details</span></a>
+            <a href="/EmployeeProject/changePass.php" class="px-2 py-4 w-full font-semibold"><i class="fa-solid fa-key mx-3"></i><span>Change Password</span></a>
+            <a href="/EmployeeProject/deleteProfile.php" class="px-2 py-4 text-sky-500 w-full font-semibold"><i class="bi bi-trash3 mx-3"></i><span>Delete My Profile</span></a>
+            <?php require '_header.php'; ?>
 </aside>
-<main class="w-4/5 h-screen flex flex-col items-center justify-center">
+<main class="flex-1 h-full flex flex-col items-center justify-center">
     <?php 
     $email = $_SESSION['email'];
     $password = $_SESSION['password'];
@@ -42,7 +57,7 @@
                 <input type="checkbox" required><p>Are you sure to delete your profile ?</p>
             </div>
             <!-- Login Button -->
-            <button type="submit" class="w-full p-2 bg-red-500 text-white mt-2 rounded-sm hover:bg-sky-700" name="deleteme"> Delete Profile</button>
+            <button type="submit" class="w-full p-2 bg-white text-red-500 border-[1px] border-red-500 mt-2 rounded-sm hover:bg-red-500 hover:text-white" name="deleteme"> Delete Profile</button>
 
             <?php 
             if(isset($_POST["deleteme"])){
@@ -50,15 +65,15 @@
                 if($pass == $password){
                     $sql = "DELETE FROM registration WHERE email='$email' && password='$password'";
                     if($conn->query($sql)){
-                        echo '<p class="text-center p-3 font-semibold text-sm mt-2 text-white bg-green-500" id="hideIt">Profile Deleted</p>';
+                        echo '<p class="text-center p-3 font-semibold text-sm mt-2 text-white bg-green-500" id="hideIt" onclick="hideMsg()">Profile Deleted</p>';
                         header("Location: http://localhost/EmployeeProject/login.php");
                     }
                     else{
-                        echo '<p class="text-center p-3 font-semibold text-sm mt-2 text-white bg-red-500" id="hideIt">Unable to Delete</p>';
+                        echo '<p class="text-center p-3 font-semibold text-sm mt-2 text-white bg-red-500" id="hideIt" onclick="hideMsg()">Unable to Delete</p>';
                     }
                 }
                 else{
-                    echo '<p class="text-center p-3 font-semibold text-sm mt-2 text-white bg-red-500" id="hideIt">Wrong Password</p>';
+                    echo '<p class="text-center p-3 font-semibold text-sm mt-2 text-white bg-red-500" id="hideIt" onclick="hideMsg()">Wrong Password</p>';
                 }
             }
             ?>
@@ -74,9 +89,12 @@
     </main>
 </section>
 <script>
-        document.querySelector('#hideIt').addEventListener('click',() => {
+    function hidenav(){
+            document.querySelector('aside').classList.toggle('hidded');
+        }
+        function hideMsg (){
             document.querySelector('#hideIt').style.display = 'none';
-        })
-    </script>
+        }
+        </script>
 </body>
 </html>

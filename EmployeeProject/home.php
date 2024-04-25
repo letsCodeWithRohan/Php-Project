@@ -20,17 +20,31 @@
     th,td{
         padding: 10px;
     }
+    aside{
+        transition: display linear 0.5s;
+    }
+    aside.hidded{
+        transition: all ease 0.3s;
+        width: max-content;
+        & span{
+            display: none;
+        }
+        & i{
+            margin: 0 20px;
+        }
+    }
 </style>
-<body class="h-screen w-screen bg-sky-300">
-    <?php require '_header.php'; ?>
-<section class="home flex">
-    <!-- Menubar -->
-    <aside class="w-1/5 h-screen bg-white flex flex-col pt-[5vh]">
-    <a href="/EmployeeProject/home.php" class="px-2 py-4 bg-white text-sky-500 w-full font-semibold "><i class="bi bi-collection me-3"></i>Show Details</a>
-    <a href="/EmployeeProject/changePass.php" class="px-2 py-4 w-full font-semibold"><i class="fa-solid fa-key me-3"></i>Change Password</a>
-    <a href="/EmployeeProject/deleteProfile.php" class="px-2 py-4 w-full font-semibold"><i class="bi bi-trash3 me-3"></i>Delete My Profile</a>
+<body class="h-screen w-screen bg-sky-300 flex flex-col">
+    <section class="home flex flex-1">
+        <!-- Menubar -->
+        <aside class="duration-5 w-1/5 h-full bg-white flex flex-col pt-[5vh] relative">
+            <p id="hider" class="absolute bg-white shadow-lg rounded-md w-[40px] h-[40px] flex justify-center items-center right-[-20px] top-[5px]"><</p>
+            <a href="/EmployeeProject/home.php" class="px-2 py-4 bg-white text-sky-500 w-full font-semibold "><i class="bi bi-collection mx-3"></i><span>Show Details</span></a>
+            <a href="/EmployeeProject/changePass.php" class="px-2 py-4 w-full font-semibold"><i class="fa-solid fa-key mx-3"></i><span>Change Password</span></a>
+            <a href="/EmployeeProject/deleteProfile.php" class="px-2 py-4 w-full font-semibold"><i class="bi bi-trash3 mx-3"></i><span>Delete My Profile</span></a>
+            <?php require '_header.php'; ?>
 </aside>
-<main class="w-4/5 h-screen flex flex-col items-center">
+<main class="flex-1 h-full flex flex-col items-center">
     <h1 class="text-center m-4 font-semibold text-2xl">Employee Details</h1>
     <?php 
     $email = $_SESSION['email'];
@@ -50,6 +64,7 @@
         echo "Error Fetching Data";
     }
     ?>
+    <img src="<?php echo $data["profile"];?>" alt="" srcset="" class="mb-5 rounded-full">
     <table class="w-2/3 bg-white">
         <tr><th>Employee ID</th><td><?php echo $e_id; ?></td></tr>
         <tr><th>Name</th><td><?php echo $name; ?></td></tr>
@@ -78,5 +93,12 @@
     ?>
     </main>
 </section>
+<script>
+    let hider = document.querySelector('#hider');
+
+    hider.addEventListener('click',() => {
+        document.querySelector('aside').classList.toggle('hidded');
+    })
+</script>
 </body>
 </html>
