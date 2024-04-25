@@ -30,14 +30,14 @@
             display: none;
         }
         & i{
-            margin: 0 20px;
+            margin: 0 15px;
         }
     }
 </style>
 <body class="h-screen w-screen bg-sky-300 flex flex-col">
     <section class="home flex flex-1">
         <!-- Menubar -->
-        <aside class="duration-5 w-1/5 h-full bg-white flex flex-col pt-[5vh] relative">
+        <aside class="duration-5 w-1/5 h-full bg-white flex flex-col pt-[5vh] relative rounded-lg">
             <p id="hider" class="absolute bg-white shadow-lg rounded-md w-[40px] h-[40px] flex justify-center items-center right-[-20px] top-[5px]"><</p>
             <a href="/EmployeeProject/home.php" class="px-2 py-4 bg-white text-sky-500 w-full font-semibold "><i class="bi bi-collection mx-3"></i><span>Show Details</span></a>
             <a href="/EmployeeProject/changePass.php" class="px-2 py-4 w-full font-semibold"><i class="fa-solid fa-key mx-3"></i><span>Change Password</span></a>
@@ -64,7 +64,6 @@
         echo "Error Fetching Data";
     }
     ?>
-    <img src="<?php echo $data["profile"];?>" alt="" srcset="" class="mb-5 rounded-full">
     <table class="w-2/3 bg-white">
         <tr><th>Employee ID</th><td><?php echo $e_id; ?></td></tr>
         <tr><th>Name</th><td><?php echo $name; ?></td></tr>

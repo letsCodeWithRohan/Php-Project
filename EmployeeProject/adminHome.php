@@ -22,7 +22,7 @@
 </head>
 <style>
     table,tr,th,td{
-        border: 1px solid #000;
+        border: 1px solid #fff;
         border-collapse: collapse;
     }
     th,td{
@@ -39,18 +39,48 @@
 <section class="home flex">
     <!-- Menubar -->
     <aside class="w-1/5 h-screen bg-zinc-800 flex flex-col pt-[5vh] text-white">
-    <a href="/EmployeeProject/home.php" class="px-2 py-4 bg-white bg-zinc-700 w-full font-semibold "><i class="bi bi-collection me-3"></i>Show Details</a>
-    <a href="/EmployeeProject/changePass.php" class="px-2 py-4 w-full font-semibold"><i class="fa-solid fa-key me-3"></i>Change Password</a>
-    <a href="/EmployeeProject/deleteProfile.php" class="px-2 py-4 w-full font-semibold"><i class="bi bi-trash3 me-3"></i>Delete My Profile</a>
+    <a href="/EmployeeProject/adminHome.php" class="px-2 py-4 bg-white bg-zinc-700 w-full font-semibold "><i class="bi bi-collection me-3"></i>Show Details</a>
+    <a href="/EmployeeProject/adminHome.php" class="px-2 py-4 w-full font-semibold"><i class="fa-solid fa-key me-3"></i>Change Password</a>
+    <a href="/EmployeeProject/adminHome.php" class="px-2 py-4 w-full font-semibold"><i class="bi bi-trash3 me-3"></i>Delete My Profile</a>
 </aside>
 <main class="w-4/5 h-screen flex flex-col items-center">
     <h1 class="text-center m-4 font-semibold text-2xl text-white">Employee Details</h1>
+    <table class="text-white w-2/3">
+        <tr>
+            <th>
+                ID
+            </th>
+            <th>
+                Name
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+                Password
+            </th>
+            <th>
+                Mobile
+            </th>
+            <th>
+                Gender
+            </th>
+        </tr>
     <?php 
     $email = $_SESSION['email'];
     $password = $_SESSION['password'];
+
+    $sql = "SELECT * FROM registration";
+    $result = $conn->query($sql);   
+    if ($result->num_rows > 0) {
+        // output data of each row
+        while($row = $result->fetch_assoc()) {
+          echo "<tr><td>".$row['e_id']."</td><td>".$row['name']."</td><td>".$row['email']."</td><td>".$row['password']."</td><td>".$row['mobile']."</td><td>".$row['gender'].'</td><td><button type="button" class="bg-sky-600 px-3">Edit</button></td>'."</tr>";
+        }
+      } else {
+        echo "<tr>0 results</tr>";
+      }
     ?>
-    <table class="w-2/3 bg-white">
-        
     </table>
     
     <?php 
